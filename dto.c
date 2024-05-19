@@ -1044,15 +1044,20 @@ static int dsa_init(void)
 			wait_method = WAIT_BUSYPOLL;
 			min_avg_waits = MIN_AVG_POLL_WAITS;
 			max_avg_waits = MAX_AVG_POLL_WAITS;
+			LOG_TRACE("Set Wait method to busy_poll\n");
 		} else if (!strncmp(env_str, wait_names[WAIT_UMWAIT], strlen(wait_names[WAIT_UMWAIT]))) {
 			if (umwait_support) {
 				wait_method = WAIT_UMWAIT;
 				/* Use the same waits as busypoll for now */
 				min_avg_waits = MIN_AVG_POLL_WAITS;
 				max_avg_waits = MAX_AVG_POLL_WAITS;
+				LOG_TRACE("Set Wait method to mwait\n");
 			} else
 				LOG_ERROR("umwait not supported. Falling back to default wait method\n");
 		}
+	}
+	if(wait_method == WAIT_YIELD){
+		LOG_TRACE("Set Wait method to yield\n");
 	}
 
 	env_str = getenv("DTO_WQ_LIST");
@@ -1745,4 +1750,8 @@ int memcmp(const void *s1, const void *s2, size_t n)
 #endif
 	}
 	return ret;
+}
+
+int main(){
+
 }

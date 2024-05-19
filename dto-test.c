@@ -36,7 +36,7 @@ int thread_func(void *thr_data)
 
 		memset(s, MEMSET_PATTERN, BUF_SIZE);
 		memcpy(d, s, BUF_SIZE);
-		
+
 		if (memcmp(d, s, BUF_SIZE) != 0)
 			printf("memcmp failed for dsa fill\n");
 
@@ -54,13 +54,13 @@ int thread_func(void *thr_data)
 int main(int argc, char **argv)
 {
  	thrd_t threads[MAX_THREADS];
-
-	for(int t = 0; t < MAX_THREADS; ++t)
+	int num_threads = atoi(argv[1]);
+	for(int t = 0; t < num_threads; ++t)
 		thrd_create(&threads[t], thread_func, NULL);
 
-	for(int t = 0; t < MAX_THREADS; ++t)
+	for(int t = 0; t < num_threads; ++t)
 		thrd_join(threads[t], NULL);
-	
+
 	printf("all threads completed execution\n");
 	return 0;
 }

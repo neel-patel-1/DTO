@@ -18,7 +18,7 @@ install:
 	ln -sf /usr/lib64/libdto.so.1.0 /usr/lib64/libdto.so
 
 dto-test: dto-test.c
-	gcc -g dto-test.c $(DML_LIB_CXX) -o dto-test -ldto -lpthread
+	gcc dto-test.c $(DML_LIB_CXX) -o dto-test -ldto -lpthread
 
 dto-test-wodto: dto-test.c
 	gcc -g dto-test.c $(DML_LIB_CXX) -o dto-test-wodto -lpthread
